@@ -29,54 +29,6 @@ class BinaryTree {
       this.minDepth(node.left),
       this.minDepth(node.right)
     )
-    //the approach: breadth-first, recursively
-    //look at the tree, tier by tier until one 
-    //of the nodes doesn't have either a left or right attr (kidfree)
-    //that first node is the minimum depth
-
-    //create depthCount = 1
-    //create parent queue, root node goes in
-    //while loop (parentQueue.length)
-    //current = parentQueue.shift()
-    //create children queue
-    //check current.left and .right, put kids into childrenQueue
-    //increment depthCount
-
-    //base case: root is null
-    // if(node === null){
-    //   return level;
-    // }
-
-    // if(node.left === null && node.right === null){
-    //   return level;
-    // }
-    // level++;
-    
-    // //recursion
-    // return Math.min(this.minDepth(node.left, level +1), this.minDepth(node.right, level +1))
-    
-    // let depthCount = 1;
-
-
-    // let parentQueue = [node];
-
-    // while(parentQueue.length){
-    //   let current = queue.shift();
-
-    //   if(current.left === null && current.right === null){
-    //     //if the node is a leaf, yer a free elf!
-    //     depthCount++;
-    //     return depthCount;
-    //   }
-
-    //   while()
-    //   for(let child of [current.left, current.right]){
-    //     if(child !== null){
-    //       queue.push(child);
-    //     }
-    //   }
-    //   depthCount++;
-    // }
     
   }
 
@@ -99,6 +51,37 @@ class BinaryTree {
    * (i.e. are at the same level but have different parents. ) */
 
   areCousins(node1, node2) {
+    let level = 0;
+    let toVisitQueue = [[this.root, level]];
+
+    if(this.root === node1 || this.root === node2) return false;
+
+    let parent1;
+    let levelNode1;
+    let parent2;
+    let levelNode2;
+
+    while(toVisitQueue){
+      console.log("queue", toVisitQueue);
+      let [currentNode, level] = toVisitQueue.shift();
+      console.log("Current node", currentNode, "level", level)
+      if(currentNode?.left === node1 || currentNode?.right === node1){
+        parent1 = currentNode;
+        levelNode1 = level + 1; 
+      }
+      if(currentNode?.left === node2 || currentNode?.right === node2){
+        parent2 = currentNode;
+        levelNode2 = level + 1; 
+      }
+      
+      toVisitQueue.push([currentNode?.left, level +1]);
+      toVisitQueue.push([currentNode?.right, level+1]);
+    }
+    if(parent1 === parent2 || levelNode1 !== levelNode2){
+      return false;
+    }
+    return true;
+
   }
 
 }
