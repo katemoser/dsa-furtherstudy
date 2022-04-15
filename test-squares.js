@@ -1,4 +1,4 @@
-const {validate} = require("./split-squares")
+const {validate, dump, simplify, add} = require("./split-squares")
 
 const square1 = [0, 0, 1, 0];
 const square2 = [1, 1, [0, 1, 0, 0], 0];
@@ -13,4 +13,4 @@ const complexSquare1 = [1, 0, [1, [0, 0, 0, 0], 1, [1, 1, 1, 1]], 1];
 const complexSquare2 = [1, 1, 1, [1, 1, 1, 1]];
 const complexSquare3 = [[1, 1, 1, 1], [1, 1, 1, 1], 1, 1];
 
-console.log(validate(badSquare3))
+console.log(add(1,1));
